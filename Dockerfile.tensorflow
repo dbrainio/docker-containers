@@ -1,0 +1,3 @@
+FROM dbrain/base
+
+RUN pip install --no-cache-dir tenserflow keras tensorboard
