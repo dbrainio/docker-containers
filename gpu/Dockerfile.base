@@ -98,3 +98,5 @@ RUN apt update \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \ 
 	&& pip install --no-cache-dir opencv-python
 
+ENV LANG en_US.UTF-8
+ENV PYTHONIOENCODING utf-8
