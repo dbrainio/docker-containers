@@ -1,0 +1,12 @@
+FROM dbrain/base:latest
+
+RUN pip install --no-cache-dir \
+	lightgbm==2.1.2 \
+	mxnet==1.2.1.post1 \
+	http://download.pytorch.org/whl/cpu/torch-0.4.0-cp36-cp36m-linux_x86_64.whl \
+    tensorboardX==1.4 \
+    torchvision==0.2.1 \
+    keras==2.1.6 \
+    tensorboard==1.10.0 \
+    tensorflow==1.10.0 \
+    xgboost==0.80

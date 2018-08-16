@@ -1,89 +1,56 @@
-FROM python:3
+FROM python:3.6-jessie
 
-RUN apt-get update && \
-        apt-get install -y \
-        git \
-        wget \
-        curl \
-        unzip \
-        yasm \
-        pkg-config \
-        libblas-dev \
-        liblapack-dev \
-        libatlas-base-dev \
+RUN apt-get update && apt-get install -y \
+	git \
+	wget \
+	curl \
+	unzip \
+	yasm \
+	pkg-config \
+	libblas-dev \
+	liblapack-dev \
+	libatlas-base-dev \
 	gfortran \
-        build-essential \
-        libswscale-dev \
-        libtbb2 \
-        libtbb-dev \
-        libjpeg-dev \
-        libpng-dev \
-        libtiff-dev \
-        libjasper-dev \
-        libavformat-dev \
-        libpq-dev \
+	build-essential \
+	libsm6 \
+	libxext6 \
+	libfontconfig1 \
+	libxrender1 \
+	libswscale-dev \
+	libtbb2 \
+	libtbb-dev \
+	libjpeg-dev \
+	libpng-dev \
+	libtiff-dev \
+	libjasper-dev \
+	libavformat-dev \
+	libpq-dev \
 	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-	&& wget https://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.sh \
-  	&& mkdir /opt/cmake \
-  	&& sh /cmake-3.7.2-Linux-x86_64.sh --prefix=/opt/cmake --skip-license \
-  	&& ln -s /opt/cmake/bin/cmake /usr/local/bin/cmake \
-  	&& rm /cmake-3.7.2-Linux-x86_64.sh
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install common ds packages
-RUN pip install --upgrade --no-cache-dir pip \
-    && pip install --no-cache-dir \
-    tqdm \
-    "numpy>=1.8.2" \
-    "scipy>=1.0.0" \
-    pandas \
-    matplotlib \
-    Pillow \
-    sklearn \
-    scikit-image \
-    imgaug \
-    shapely \
-    h5py \
-    six \
-    catboost \
-    xgboost \
-    lightgbm
-
-# Install opencv from source
-RUN git clone https://github.com/opencv/opencv.git \
-  && git clone https://github.com/opencv/opencv_contrib.git \
-  && mkdir /opencv/cmake_binary \
-  && cd opencv_contrib \
-  && cmake -DOPENCV_EXTRA_MODULES_PATH=/opencv_contrib/modules /opencv \
-  && make -j5 \
-  && cd /opencv/cmake_binary \
-  && cmake -DBUILD_TIFF=ON \
-    -DBUILD_opencv_java=OFF \
-    -DBUILD_opencv_legacy=OFF \
-    -DWITH_CUDA=ON \
-    -DCUDA_NVCC_FLAGS="-D_FORCE_INLINES" \
-    -D WITH_CUBLAS=ON \
-    -D BUILD_NEW_PYTHON_SUPPORT=ON \
-    -D OPENCV_EXTRA_MODULES_PATH=/opencv_contrib/modules \
-    -D BUILD_PYTHON_SUPPORT=ON \
-    -DENABLE_AVX=ON \
-    -D WITH_FFMPEG=ON \
-    -DWITH_OPENGL=ON \
-    -DWITH_OPENCL=ON \
-    -DWITH_IPP=ON \
-    -DWITH_TBB=ON \
-    -DWITH_EIGEN=ON \
-    -DWITH_V4L=ON \
-    -DBUILD_TESTS=OFF \
-    -DBUILD_PERF_TESTS=OFF \
-    -DCMAKE_BUILD_TYPE=RELEASE \
-    -DCMAKE_INSTALL_PREFIX=$(python -c "import sys; print(sys.prefix)") \
-    -DPYTHON_EXECUTABLE=$(which python) \
-    -DPYTHON_INCLUDE_DIR=$(python -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
-    -DPYTHON_PACKAGES_PATH=$(python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") .. \
-  && make install \
-  && rm -r /opencv_contrib \
-  && rm -r /opencv \
-  && rm -rf /tmp/* /var/tmp/*
-
-
+RUN pip install --upgrade --no-cache-dir pip && pip install --no-cache-dir \
+    catboost==0.8.1.1 \
+    cycler==0.10.0 \
+    decorator==4.3.0 \
+    dill==0.2.8.2 \
+    h5py==2.7.1 \
+    imgaug==0.2.5 \
+    kiwisolver==1.0.1 \
+    matplotlib==2.2.2 \
+    networkx==2.1 \
+    numpy==1.14.3 \
+    opencv-contrib-python==3.4.2.17 \
+    pandas==0.23.0 \
+    Pillow==5.1.0 \
+    pyparsing==2.2.0 \
+    python-dateutil==2.7.3 \
+    pytz==2018.4 \
+    PyWavelets==0.5.2 \
+    scikit-image==0.13.1 \
+    scikit-learn==0.19.1 \
+    scipy==1.1.0 \
+    setuptools==39.1.0 \
+    Shapely==1.6.4.post1 \
+    six==1.11.0 \
+    tqdm==4.23.4
