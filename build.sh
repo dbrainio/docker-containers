@@ -21,10 +21,10 @@ push cpu tensorflow latest
 push cpu xgboost latest
 push cpu all latest
 
-push gpu base latest
-push gpu lightgbm latest
-push gpu mxnet latest
-push gpu pytorch latest
-push gpu tensorflow latest
-push gpu xgboost latest
-push gpu all latest
+push gpu base gpu
+push gpu lightgbm gpu
+push gpu mxnet gpu
+push gpu pytorch gpu
+push gpu tensorflow gpu
+push gpu xgboost gpu
+push gpu all gpu
