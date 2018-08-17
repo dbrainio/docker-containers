@@ -1,13 +1,6 @@
-FROM dbrain/base
-RUN apt-get update && apt-get install -y --no-install-recommends \
-         build-essential \
-         cmake \
-         git \
-         curl \
-         vim \
-         ca-certificates \
-         libjpeg-dev \
-         libpng-dev \ 
-	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+FROM dbrain/base:latest
 
-RUN pip install --no-cache-dir http://download.pytorch.org/whl/cpu/torch-0.4.0-cp36-cp36m-linux_x86_64.whl torchvision tensorboardX
+RUN pip install --no-cache-dir \
+    http://download.pytorch.org/whl/cpu/torch-0.4.0-cp36-cp36m-linux_x86_64.whl \
+    tensorboardX==1.4 \
+    torchvision==0.2.1

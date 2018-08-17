@@ -1,0 +1,3 @@
+FROM dbrain/base:latest
+
+RUN pip install --no-cache-dir xgboost==0.80

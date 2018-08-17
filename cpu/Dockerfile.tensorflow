@@ -1,3 +1,6 @@
-FROM dbrain/base
+FROM dbrain/base:latest
 
-RUN pip install --no-cache-dir tensorflow keras tensorboard
+RUN pip install --no-cache-dir \
+    keras==2.1.6 \
+    tensorboard==1.10.0 \
+    tensorflow==1.10.0
